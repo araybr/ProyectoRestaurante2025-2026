@@ -1,0 +1,10 @@
+<section class="login">
+  <h2>Iniciar Sesión</h2>
+  <form (ngSubmit)="login()">
+    <input type="email" [(ngModel)]="email" name="email" placeholder="Correo electrónico" required>
+    <input type="password" [(ngModel)]="password" name="password" placeholder="Contraseña" required>
+    <button type="submit">Entrar</button>
+  </form>
+  <p *ngIf="error" class="error">{{ error }}</p>
+</section>
+

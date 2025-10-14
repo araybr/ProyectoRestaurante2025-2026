@@ -1,0 +1,13 @@
+<section class="menus">
+  <h2>🍽️ Nuestros Menús</h2>
+  <div class="menu-list">
+    <div class="menu-card" *ngFor="let menu of menus">
+      <img [src]="menu.imagen_url" [alt]="menu.nombre">
+      <h3>{{ menu.nombre }}</h3>
+      <p>{{ menu.descripcion }}</p>
+      <span>{{ menu.precio | currency:'EUR' }}</span>
+      <p *ngIf="menu.especialidad">⭐ Especialidad</p>
+      <p *ngIf="menu.masVendido">🔥 Más vendido</p>
+    </div>
+  </div>
+</section>

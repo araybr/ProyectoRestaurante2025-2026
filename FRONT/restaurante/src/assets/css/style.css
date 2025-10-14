@@ -1,0 +1,263 @@
+/*------------------------------------------------------------------
+    File Name: style.css
+    Template Name: Landigoo
+    Created By: MelodyThemes
+    Website: https://melodythemes.com
+    Version: 1.0
+-------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------
+    [Table of contents]
+    1. IMPORT FONTS
+    2. IMPORT FILES
+    3. SKELETON
+    4. HEADER AREA
+    5. BANNER AREA
+    6. ABOUT AREA
+    7. SPECIAL-MENU AREA
+    8. MENU AREA
+    9. TEAM AREA
+    10. GALLERY AREA
+    11. BLOG AREA
+    12. PRICING AREA
+    13. RESERVATIONS AREA
+-------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------
+    IMPORT FONTS
+-------------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css?family=Paprika');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
+
+/*------------------------------------------------------------------
+    IMPORT FILES
+-------------------------------------------------------------------*/
+@import url(../css/owl.theme.css);
+@import url(../css/owl.carousel.css);
+@import url(../css/slick.css);
+@import url(../css/flaticon.css);
+@import url(../css/font-awesome.min.css);
+@import url(../css/bootstrap-datetimepicker.css);
+@import url(../css/bootstrap-select.min.css);
+@import url(../css/normalize.css);
+@import url(../css/animate.min.css);
+
+/*------------------------------------------------------------------
+    SKELETON
+-------------------------------------------------------------------*/
+@font-face {
+  font-family: 'nautilus_pompiliusregular';
+  src: url('../fonts/nautilus-webfont.woff2') format('woff2'),
+  url('../fonts/nautilus-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  color: #686868;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.8;
+}
+
+a {
+  color: #1f1f1f;
+  text-decoration: none !important;
+  transition: all .3s ease-in-out;
+  outline: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: 0;
+  font-weight: normal;
+  position: relative;
+  padding: 0 0 10px 0;
+  color: #1f1f1f;
+  margin: 0;
+  line-height: 120% !important;
+}
+
+h1 { font-size: 24px; }
+h2 { font-size: 22px; }
+h3 { font-size: 18px; }
+h4 { font-size: 16px; }
+h5 { font-size: 14px; }
+h6 { font-size: 13px; }
+
+ul, li, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.btn-custom {
+  margin-top: 20px;
+  background-color: transparent !important;
+  border: 2px solid #ddd;
+  padding: 12px 40px;
+  font-size: 16px;
+}
+
+.lead {
+  font-size: 18px;
+  line-height: 30px;
+  color: #767676;
+  margin: 0;
+}
+
+/*------------------------------------------------------------------
+    Preloader
+-------------------------------------------------------------------*/
+#mhead {
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+  text-align: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin-left: -10px;
+}
+
+#loader {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #fefefe;
+  z-index: 9999;
+  height: 100%;
+}
+
+#status {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: url(../images/loader-animation.gif) no-repeat center;
+  margin: -100px 0 0 -100px;
+}
+
+/*------------------------------------------------------------------
+    Scrollup
+-------------------------------------------------------------------*/
+.scrollup {
+  width: 40px;
+  height: 40px;
+  text-indent: -9999px;
+  opacity: 0.3;
+  position: fixed;
+  bottom: 20px;
+  right: 40px;
+  display: none;
+  background: url(../images/icon_top.png) no-repeat;
+}
+.scrollup:hover { opacity: 0.8; }
+
+/*------------------------------------------------------------------
+    HEADER AREA
+-------------------------------------------------------------------*/
+.header-block-top {
+  position: absolute;
+  z-index: 11;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+/*------------------------------------------------------------------
+    BANNER AREA
+-------------------------------------------------------------------*/
+.banner {
+  background: url(../images/banner.jpg) no-repeat center top;
+  background-attachment: fixed;
+  background-size: cover;
+  height: 100vh;
+}
+
+.banner-text {
+  display: table;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.banner-cell {
+  display: table-cell;
+  vertical-align: middle;
+  color: #fff;
+}
+
+.banner-text h1 {
+  font-family: 'nautilus_pompiliusregular';
+  font-size: 74px;
+  color: #fff;
+  padding-top: 100px;
+}
+
+.banner-text p {
+  font-size: 18px;
+  color: #ccc;
+  padding-bottom: 35px;
+}
+
+/*------------------------------------------------------------------
+    Scroll animation (mouse)
+-------------------------------------------------------------------*/
+.banner-cell .mouse {
+  position: relative;
+  width: 32px;
+  height: 62px;
+  margin: 60px auto 20px;
+  border: 2px solid white;
+  border-radius: 32px;
+}
+
+.banner-cell .mouse:after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border: 2px solid white;
+  border-radius: 100%;
+  animation: scrollWheel 1.4s ease infinite;
+}
+
+@keyframes scrollWheel {
+  from {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, 20px);
+    opacity: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  @keyframes scrollWheel {
+    from {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+    to {
+      transform: translate(-50%, 40px);
+      opacity: 0;
+    }
+  }
+}
+
+/*------------------------------------------------------------------
+    ABOUT AREA
+-------------------------------------------------------------------*/
+.about-main {
+  background: #E6E6E6;
+}
+
+.pad-top-100 { padding-top: 90px; }
+.pad-bottom-100 { padding-bottom: 90px; }
+
+/*------------------------------------------------------------------
+    FIN DE CÓDIGO REPARADO
+-------------------------------------------------------------------*/

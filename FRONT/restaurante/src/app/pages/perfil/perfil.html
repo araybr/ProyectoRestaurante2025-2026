@@ -1,0 +1,10 @@
+<section class="perfil">
+  <h2>Perfil del Usuario</h2>
+  <div *ngIf="auth.authenticated; else notLogged">
+    <p>Bienvenido de nuevo 👋</p>
+  </div>
+  <ng-template #notLogged>
+    <p>Debes iniciar sesión para ver tu perfil.</p>
+  </ng-template>
+</section>
+
