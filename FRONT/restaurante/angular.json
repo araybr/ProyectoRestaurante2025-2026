@@ -23,7 +23,7 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "src/styles.css"
+              "src/assets/css/style.css"
             ], "scripts": [
               "src/assets/js/bootstrap.min.js",
               "src/assets/js/modernizer.js",
