@@ -38,7 +38,9 @@
 }
 
 .owl-carousel .owl-item{
-	float: left;
+  float: left;
+  width: 380px;
+  vertical-align: top;
 }
 .owl-controls .owl-page,
 .owl-controls .owl-buttons div{

@@ -24,6 +24,11 @@
             ],
             "styles": [
               "src/styles.css"
+            ], "scripts": [
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/modernizer.js",
+              "src/assets/js/all.js",
+              "src/assets/js/custom.js"
             ]
           },
           "configurations": {
@@ -79,12 +84,6 @@
             ],
             "styles": [
               "src/styles.css"
-            ],
-            "scripts": [
-              "src/assets/js/all.js",
-              "src/assets/js/modernizer.js",
-              "src/assets/js/bootstrap.min.js",
-              "src/assets/js/custom.js"
             ]
           }
         }
