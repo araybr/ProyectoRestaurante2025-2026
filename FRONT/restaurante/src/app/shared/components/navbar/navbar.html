@@ -1,10 +1,9 @@
 <div id="site-header">
-  <header id="header" class="header-block-top">
+  <header id="header">
     <div class="container">
       <div class="row">
         <div class="main-menu">
-          <!-- navbar -->
-          <nav class="navbar navbar-default" id="mainNav">
+          <nav class="navbar navbar-default" id="mainNav" [ngClass]="{'navbar-transparent': !scrolled, 'navbar-scrolled': scrolled}">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -14,7 +13,7 @@
               </button>
               <div class="logo">
                 <a class="navbar-brand js-scroll-trigger logo-header" href="#">
-                  <img src="images/logo.png" alt="">
+                  <img src="assets/images/logo.png" alt="">
                 </a>
               </div>
             </div>
@@ -26,20 +25,14 @@
                 <li><a href="#our_team">Team</a></li>
                 <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#blog">Blog</a></li>
-                <li><a href="#pricing">pricing</a></li>
-                <li><a href="#reservation">Reservaion</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#reservation">Reservation</a></li>
                 <li><a href="#footer">Contact us</a></li>
               </ul>
             </div>
-            <!-- end nav-collapse -->
           </nav>
-          <!-- end navbar -->
         </div>
       </div>
-      <!-- end row -->
     </div>
-    <!-- end container-fluid -->
   </header>
-  <!-- end header -->
 </div>
-

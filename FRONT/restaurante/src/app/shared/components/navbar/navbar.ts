@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import { AuthService } from '../../../core/services/auth';
-import {NgIf} from '@angular/common';
+import {NgClass, NgIf} from '@angular/common';
 import {Router} from '@angular/router';
 
 @Component({
@@ -8,14 +8,22 @@ import {Router} from '@angular/router';
   standalone: true,
   templateUrl: './navbar.html',
   imports: [
-    NgIf
+    NgIf,
+    NgClass
   ],
   styleUrls: ['./navbar.css']
 })
 export class Navbar {
   menuOpen = false;
+  scrolled = false;
 
   constructor(public auth: AuthService, private router: Router) {}
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.scrolled = window.scrollY > 50;
+  }
+
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
