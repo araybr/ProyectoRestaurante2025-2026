@@ -1,17 +1,24 @@
 package com.restaurante.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.Set;
 
-@Data
 @Entity
 @Table(name = "Menu")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Integer id_menu;
 
     private String nombre;
@@ -34,5 +41,3 @@ public class Menu {
     )
     private Set<Ingrediente> ingredientes;
 }
-
-

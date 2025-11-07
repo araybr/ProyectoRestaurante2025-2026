@@ -1,20 +1,22 @@
-// Ingrediente.java
 package com.restaurante.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import java.math.BigDecimal;
+
 import java.util.Set;
 
 @Entity
 @Table(name = "Ingrediente")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true) // 💡 solo incluimos el ID
 public class Ingrediente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Integer id_ingrediente;
 
     private String nombre;
