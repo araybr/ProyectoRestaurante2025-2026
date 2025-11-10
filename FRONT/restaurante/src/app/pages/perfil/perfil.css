@@ -1,3 +1,137 @@
-.perfil {
+/* 🔸 Fondo oscuro que cubre toda la vista del perfil */
+.perfil-page {
+  min-height: 100vh;
+  width: 100%;
+  background: radial-gradient(circle at top right, #2a2a2a, #2a2a2a);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 15rem; /* deja espacio bajo el navbar */
+}
+
+/* 🔹 Contenedor naranja */
+.perfil-container {
+  max-width: 600px;
+  width: 90%;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: linear-gradient(145deg, #ff9f43, #ff7a00);
+  color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.25);
   text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* 🔸 Avatar */
+.perfil-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+}
+
+/* 🔹 Cabeceras y listas */
+.perfil-container h2 {
+  margin-bottom: 1.5rem;
+}
+
+.perfil-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.perfil-container li {
+  background: rgba(255, 255, 255, 0.15);
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.perfil-container li:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.perfil-container a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* 🔹 Carrito */
+.carrito {
+  margin-top: 2rem;
+  background: rgba(0,0,0,0.2);
+  padding: 1rem;
+  border-radius: 0.75rem;
+}
+
+.carrito table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.carrito th, .carrito td {
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.carrito th {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.carrito td {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.carrito button {
+  background-color: #ff9800;
+  border: none;
+  color: #fff;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 0.25rem;
+}
+
+.carrito button:hover {
+  background-color: #e68a00;
+}
+
+.carrito .total {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* 🔹 Responsive */
+@media (max-width: 768px) {
+  .perfil-container {
+    padding: 1.5rem;
+  }
+
+  .perfil-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+
+  .carrito table, .carrito th, .carrito td {
+    font-size: 0.9rem;
+  }
+
+  .carrito button {
+    padding: 3px 6px;
+    font-size: 0.9rem;
+  }
 }

@@ -1,10 +1,75 @@
-<section class="login">
-  <h2>Iniciar Sesión</h2>
-  <form (ngSubmit)="login()">
-    <input type="email" [(ngModel)]="email" name="email" placeholder="Correo electrónico" required>
-    <input type="password" [(ngModel)]="password" name="password" placeholder="Contraseña" required>
-    <button type="submit">Entrar</button>
-  </form>
-  <p *ngIf="error" class="error">{{ error }}</p>
-</section>
+<div class="login-container">
+  <div class="login-card">
+    <h2>{{ isRegistering ? 'Crear cuenta' : 'Iniciar sesión' }}</h2>
 
+    @if (!isRegistering) {
+      <!-- LOGIN -->
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" formControlName="email" />
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" formControlName="password" />
+        </div>
+
+        @if (errorMessage) {
+          <p class="error">{{ errorMessage }}</p>
+        }
+        @if (successMessage) {
+          <p class="success">{{ successMessage }}</p>
+        }
+
+        <button type="submit" [disabled]="loading">
+          {{ loading ? 'Cargando...' : 'Entrar' }}
+        </button>
+
+        <p class="toggle-text">
+          ¿No tienes cuenta?
+          <span (click)="toggleForm()">Regístrate aquí</span>
+        </p>
+      </form>
+    } @else {
+      <!-- REGISTRO -->
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input formControlName="nombre" />
+        </div>
+        <div class="form-group">
+          <label>Apellidos</label>
+          <input formControlName="apellidos" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" formControlName="email" />
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" formControlName="password" />
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input formControlName="telefono" />
+        </div>
+
+        @if (errorMessage) {
+          <p class="error">{{ errorMessage }}</p>
+        }
+        @if (successMessage) {
+          <p class="success">{{ successMessage }}</p>
+        }
+
+        <button type="submit" [disabled]="loading">
+          {{ loading ? 'Creando...' : 'Registrarse' }}
+        </button>
+
+        <p class="toggle-text">
+          ¿Ya tienes cuenta?
+          <span (click)="toggleForm()">Inicia sesión</span>
+        </p>
+      </form>
+    }
+  </div>
+</div>

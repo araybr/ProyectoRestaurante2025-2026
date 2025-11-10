@@ -1,9 +1,16 @@
+import { Direccion } from './direccion.model';
+import { Alergeno } from './alergeno.model';
+
 export interface Usuario {
-  id: number;
+  id_usuario: number;
   nombre: string;
   apellidos: string;
   email: string;
-  telefono: string;
-  direccion: string;
-  alergias: string[];
+  password?: string;
+  telefono?: string;
+  fechaRegistro?: string;
+  rol?: 'cliente' | 'admin' | 'repartidor';
+  activo?: boolean;
+  direcciones?: Direccion[];
+  alergenos?: Alergeno[];
 }

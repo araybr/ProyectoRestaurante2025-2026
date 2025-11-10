@@ -1,10 +1,59 @@
-<section class="perfil">
-  <h2>Perfil del Usuario</h2>
-  <div *ngIf="auth.authenticated; else notLogged">
-    <p>Bienvenido de nuevo 👋</p>
-  </div>
-  <ng-template #notLogged>
-    <p>Debes iniciar sesión para ver tu perfil.</p>
-  </ng-template>
-</section>
+<div class="perfil-page">
+  <div class="perfil-container" *ngIf="usuario; else noLogin">
+    <div class="perfil-avatar">
+      {{ usuario.nombre[0] | uppercase }}
+    </div>
+    <h2>{{ usuario.nombre }} {{ usuario.apellidos }}</h2>
 
+    <ul>
+      <li><strong>Email:</strong> <span>{{ usuario.email }}</span></li>
+      <li><strong>Teléfono:</strong> <span>{{ usuario.telefono || 'No indicado' }}</span></li>
+      <li><strong>Rol:</strong> <span>{{ usuario.rol || 'Usuario' }}</span></li>
+      <li><strong>Activo:</strong> <span>{{ usuario.activo ? 'Sí' : 'No' }}</span></li>
+      <li><strong>Fecha de registro:</strong> <span>{{ usuario.fechaRegistro | date: 'short' }}</span></li>
+    </ul>
+
+    <!-- 🔹 Carrito de compras -->
+    <div class="carrito" *ngIf="carrito?.detalles?.length > 0; else vacio">
+      <h3>Tu carrito</h3>
+      <table>
+        <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Tipo</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of carrito.detalles">
+          <td>{{ item.menu?.nombre || item.postre?.nombre || item.bebida?.nombre }}</td>
+          <td>{{ item.menu ? 'Menú' : item.postre ? 'Postre' : 'Bebida' }}</td>
+          <td>{{ item.cantidad }}</td>
+          <td>{{ item.precio_unitario | currency:'EUR' }}</td>
+          <td>
+            <button (click)="eliminarDetalle(item.id_detalle)">❌</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="total">
+        Total: {{ carrito.total | currency:'EUR' }}
+      </div>
+
+      <button (click)="finalizarPedido()">Finalizar Pedido</button>
+    </div>
+
+    <ng-template #vacio>
+      <p>Tu carrito está vacío</p>
+    </ng-template>
+  </div>
+
+  <ng-template #noLogin>
+    <div class="perfil-container">
+      <p>No has iniciado sesión. <a routerLink="/login">Ir al login</a></p>
+    </div>
+  </ng-template>
+</div>

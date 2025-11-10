@@ -2,9 +2,11 @@ package com.restaurante.controller;
 
 import com.restaurante.model.Usuario;
 import com.restaurante.service.UsuarioService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -28,6 +30,26 @@ public class UsuarioController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<Usuario> login(@RequestBody Usuario user) {
+        Usuario u = usuarioService.findByEmail(user.getEmail()).orElse(null);
+        if (u != null && u.getPassword().equals(user.getPassword())) {
+            return ResponseEntity.ok(u);
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<Usuario> register(@RequestBody Usuario user) {
+        if (usuarioService.findByEmail(user.getEmail()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+        Usuario nuevo = usuarioService.save(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
+    }
+
 
     @PostMapping
     public Usuario create(@RequestBody Usuario usuario) {

@@ -1,13 +1,34 @@
-<section class="menus">
-  <h2>🍽️ Nuestros Menús</h2>
-  <div class="menu-list">
-    <div class="menu-card" *ngFor="let menu of menus">
-      <img [src]="menu.imagen_url" [alt]="menu.nombre">
-      <h3>{{ menu.nombre }}</h3>
-      <p>{{ menu.descripcion }}</p>
-      <span>{{ menu.precio | currency:'EUR' }}</span>
-      <p *ngIf="menu.especialidad">⭐ Especialidad</p>
-      <p *ngIf="menu.masVendido">🔥 Más vendido</p>
+<div class="productos-page">
+  <h2>Menús</h2>
+  <div class="productos-container">
+    <div class="producto-card" *ngFor="let m of menus">
+      <img *ngIf="m.imagen_url" [src]="m.imagen_url" alt="{{m.nombre}}">
+      <h3>{{ m.nombre }}</h3>
+      <p>{{ m.descripcion }}</p>
+      <p><strong>{{ m.precio | currency:'EUR' }}</strong></p>
+      <button (click)="agregarAlCarrito('menu', m)">Añadir al carrito</button>
     </div>
   </div>
-</section>
+
+  <h2>Postres</h2>
+  <div class="productos-container">
+    <div class="producto-card" *ngFor="let p of postres">
+      <img *ngIf="p.imagen_url" [src]="p.imagen_url" alt="{{p.nombre}}">
+      <h3>{{ p.nombre }}</h3>
+      <p>{{ p.descripcion }}</p>
+      <p><strong>{{ p.precio | currency:'EUR' }}</strong></p>
+      <button (click)="agregarAlCarrito('postre', p)">Añadir al carrito</button>
+    </div>
+  </div>
+
+  <h2>Bebidas</h2>
+  <div class="productos-container">
+    <div class="producto-card" *ngFor="let b of bebidas">
+      <img *ngIf="b.imagen_url" [src]="b.imagen_url" alt="{{b.nombre}}">
+      <h3>{{ b.nombre }}</h3>
+      <p>{{ b.descripcion }}</p>
+      <p><strong>{{ b.precio | currency:'EUR' }}</strong></p>
+      <button (click)="agregarAlCarrito('bebida', b)">Añadir al carrito</button>
+    </div>
+  </div>
+</div>

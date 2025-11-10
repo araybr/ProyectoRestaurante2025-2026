@@ -1,24 +1,43 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject, tap } from 'rxjs';
+import { Usuario } from '../../shared/models/usuario.model';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
+
 export class AuthService {
-  private isLoggedIn = false;
+  private apiUrl = 'http://localhost:8080/api/usuarios';
+  private usuarioSubject = new BehaviorSubject<Usuario | null>(this.getUsuarioFromLocalStorage());
+  usuario$ = this.usuarioSubject.asObservable();
 
-  login(email: string, password: string): boolean {
-    // Ejemplo simple
-    if (email === 'admin@restaurante.com' && password === '1234') {
-      this.isLoggedIn = true;
-      return true;
-    }
-    return false;
+  constructor(private http: HttpClient) {}
+
+  login(usuario: Usuario): Observable<Usuario> {
+    return this.http.post<Usuario>(`${this.apiUrl}/login`, usuario).pipe(
+      tap(res => {
+        localStorage.setItem('usuario', JSON.stringify(res));
+        this.usuarioSubject.next(res);
+      })
+    );
   }
 
-  logout() {
-    this.isLoggedIn = false;
+  register(usuario: Usuario): Observable<Usuario> {
+    return this.http.post<Usuario>(`${this.apiUrl}`, usuario);
   }
 
-  get authenticated() {
-    return this.isLoggedIn;
+  logout(): void {
+    localStorage.removeItem('usuario');
+    this.usuarioSubject.next(null);
+  }
+
+  getUsuarioActual(): Usuario | null {
+    return this.usuarioSubject.value;
+  }
+
+  private getUsuarioFromLocalStorage(): Usuario | null {
+    const data = localStorage.getItem('usuario');
+    return data ? JSON.parse(data) : null;
   }
 }
-

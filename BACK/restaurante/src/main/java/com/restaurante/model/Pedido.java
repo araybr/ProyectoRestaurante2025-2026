@@ -33,12 +33,11 @@ public class Pedido {
 
     private String direccion_entrega;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetallePedido> detalles;
 
     @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
     private Pago pago;
 }
 
-enum EstadoPedido { PENDIENTE, PREPARACION, ENVIADO, ENTREGADO }
 enum MetodoPago { TARJETA, PAYPAL, EFECTIVO }

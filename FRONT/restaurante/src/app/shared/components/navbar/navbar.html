@@ -20,14 +20,21 @@
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a href="#banner">Home</a></li>
-                <li><a href="#about">About us</a></li>
-                <li><a href="#menu">Menu</a></li>
-                <li><a href="#our_team">Team</a></li>
-                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">Sobre Nosotros</a></li>
+                <li><a href="#menu">Especial de Hoy</a></li>
+                <li><a routerLink="/menus">Menus</a></li>
+                <li><a href="#our_team">Equipo</a></li>
+                <li><a href="#gallery">Galería</a></li>
                 <li><a href="#blog">Blog</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#reservation">Reservation</a></li>
-                <li><a href="#footer">Contact us</a></li>
+                <li><a href="#footer">Contactanos</a></li>
+
+                @if (!usuarioLogueado) {
+                  <li><a routerLink="/login">Iniciar sesión</a></li>
+                } @else {
+                  <li><a routerLink="/perfil">👤 {{ usuarioLogueado.nombre }}</a></li>
+                  <li><a (click)="logout()">Cerrar sesión</a></li>
+                }
+
               </ul>
             </div>
           </nav>
