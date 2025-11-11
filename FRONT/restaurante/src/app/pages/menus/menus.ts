@@ -4,6 +4,7 @@ import { MenuService } from '../../core/services/menu';
 import { Pedido } from '../../core/services/pedido';
 import { AuthService } from '../../core/services/auth';
 import { Menu, Postre, Bebida } from '../../shared/models/producto.model';
+import {data} from 'jquery';
 
 @Component({
   selector: 'app-menus',
@@ -26,18 +27,48 @@ export class Menus implements OnInit {
 
   ngOnInit(): void {
     const usuario = this.auth.getUsuarioActual();
-    this.usuarioId = usuario?.id_usuario ?? null;
+    this.usuarioId = usuario?.id ?? null;
 
+    // Menús
+    this.menuService.getMenus().subscribe((menusFromBackend: any[]) => {
+      this.menus = menusFromBackend.map(menu => ({
+        id: menu.id_menu,        // transformamos id_menu → id
+        nombre: menu.nombre,
+        descripcion: menu.descripcion,
+        precio: menu.precio,
+        imagen_url: menu.imagen_url
+      }));
+    });
 
-    this.menuService.getMenus().subscribe((data) => this.menus = data);
-    this.menuService.getPostres().subscribe((data) => this.postres = data);
-    this.menuService.getBebidas().subscribe((data) => this.bebidas = data);
+    // Postres
+    this.menuService.getPostres().subscribe((postresFromBackend: any[]) => {
+      this.postres = postresFromBackend.map(postre => ({
+        id: postre.id_postre,    // transformamos id_postre → id
+        nombre: postre.nombre,
+        descripcion: postre.descripcion,
+        precio: postre.precio,
+        imagen_url: postre.imagen_url
+      }));
+    });
+
+    // Bebidas
+    this.menuService.getBebidas().subscribe((bebidasFromBackend: any[]) => {
+      this.bebidas = bebidasFromBackend.map(bebida => ({
+        id: bebida.id_bebida,    // transformamos id_bebida → id
+        nombre: bebida.nombre,
+        descripcion: bebida.descripcion,
+        precio: bebida.precio,
+        imagen_url: bebida.imagen_url
+      }));
+    });
   }
 
   agregarAlCarrito(tipo: 'menu' | 'postre' | 'bebida', producto: any) {
     if (!this.usuarioId) return alert('Debes iniciar sesión para añadir productos');
 
-    this.pedidoService.agregarAlCarrito(this.usuarioId, producto, tipo).subscribe({
+    console.log('Producto que se va a agregar:', producto.id);
+
+    this.pedidoService.agregarAlCarrito(producto.id, tipo).subscribe({
       next: () => alert(`${producto.nombre} añadido al carrito`),
       error: (err) => console.error(err)
     });

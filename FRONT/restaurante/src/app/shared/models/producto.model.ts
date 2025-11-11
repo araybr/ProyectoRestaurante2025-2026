@@ -1,5 +1,5 @@
 export interface Menu {
-  id_menu: number;
+  id: number;
   nombre: string;
   descripcion: string;
   precio: number;
@@ -7,7 +7,7 @@ export interface Menu {
 }
 
 export interface Postre {
-  id_postre: number;
+  id: number;
   nombre: string;
   descripcion: string;
   precio: number;
@@ -15,7 +15,7 @@ export interface Postre {
 }
 
 export interface Bebida {
-  id_bebida: number;
+  id: number;
   nombre: string;
   descripcion: string;
   precio: number;

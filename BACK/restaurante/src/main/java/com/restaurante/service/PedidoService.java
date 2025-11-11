@@ -8,6 +8,8 @@ import com.restaurante.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PedidoService {
@@ -21,14 +23,18 @@ public class PedidoService {
 
     // Obtener el carrito activo o crear uno nuevo
     public Pedido obtenerOCrearCarrito(Integer idUsuario) {
-        return pedidoRepository.findByUsuarioIdAndEstado(idUsuario, EstadoPedido.PENDIENTE)
+        return pedidoRepository.findByUsuarioIdAndEstado(idUsuario, EstadoPedido.pendiente)
                 .orElseGet(() -> {
                     Usuario u = usuarioRepository.findById(idUsuario).orElseThrow();
                     Pedido carrito = new Pedido();
                     carrito.setUsuario(u);
-                    carrito.setEstado(EstadoPedido.PENDIENTE);
+                    carrito.setEstado(EstadoPedido.pendiente);
                     return pedidoRepository.save(carrito);
                 });
+    }
+
+    public List<Pedido> findAll(){
+        return pedidoRepository.findAll();
     }
 
     // Agregar producto al carrito
@@ -52,7 +58,7 @@ public class PedidoService {
     // Finalizar pedido
     public Pedido finalizarPedido(Integer idUsuario) {
         Pedido carrito = obtenerOCrearCarrito(idUsuario);
-        carrito.setEstado(EstadoPedido.PREPARACION);
+        carrito.setEstado(EstadoPedido.preparacion);
         return pedidoRepository.save(carrito);
     }
 }

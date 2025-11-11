@@ -27,7 +27,7 @@ export class Perfil implements OnInit {
   }
 
   cargarCarrito(): void {
-    this.pedidoService.obtenerCarrito(this.usuario!.id_usuario).subscribe({
+    this.pedidoService.obtenerCarrito().subscribe({
       next: (res) => this.carrito = res,
       error: (err) => console.error(err)
     });
@@ -41,7 +41,7 @@ export class Perfil implements OnInit {
   }
 
   finalizarPedido() {
-    this.pedidoService.finalizarPedido(this.usuario!.id_usuario).subscribe({
+    this.pedidoService.finalizarPedido().subscribe({
       next: () => {
         alert('Pedido finalizado');
         this.cargarCarrito();

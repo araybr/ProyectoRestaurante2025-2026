@@ -1,6 +1,8 @@
 // Pedido.java
 package com.restaurante.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
@@ -19,25 +21,28 @@ public class Pedido {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
+    @JsonBackReference
     private Usuario usuario;
+
 
     private LocalDateTime fecha_pedido = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
-    private EstadoPedido estado = EstadoPedido.PENDIENTE;
+    private EstadoPedido estado = EstadoPedido.pendiente;
 
     @Enumerated(EnumType.STRING)
-    private MetodoPago metodo_pago = MetodoPago.TARJETA;
+    private MetodoPago metodo_pago = MetodoPago.tarjeta;
 
     private BigDecimal total = BigDecimal.ZERO;
 
     private String direccion_entrega;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<DetallePedido> detalles;
 
     @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
     private Pago pago;
 }
 
-enum MetodoPago { TARJETA, PAYPAL, EFECTIVO }
+enum MetodoPago { tarjeta, paypal, efectivo }

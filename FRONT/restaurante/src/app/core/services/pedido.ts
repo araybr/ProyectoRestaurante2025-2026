@@ -1,28 +1,70 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { AuthService } from './auth';
+import { catchError } from 'rxjs/operators';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class Pedido {
   private apiUrl = 'http://localhost:8080/api/pedidos';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
 
-  obtenerCarrito(usuarioId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/carrito/${usuarioId}`);
+  /** 🧾 Obtiene el carrito del usuario actual */
+  obtenerCarrito(): Observable<any> {
+    const usuario = this.authService.getUsuarioActual();
+    if (!usuario) return throwError(() => new Error('Debes iniciar sesión'));
+
+    return this.http.get(`${this.apiUrl}/carrito/${usuario.id}`).pipe(
+      catchError(err => {
+        console.error('Error obteniendo carrito', err);
+        return throwError(() => err);
+      })
+    );
   }
 
-  agregarAlCarrito(usuarioId: number, idProducto: number, tipo: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/carrito/${usuarioId}/agregar`, null, {
-      params: { idProducto, tipo }
-    });
+  /** 🛒 Agrega un menú, bebida o postre al carrito */
+  agregarAlCarrito(idProducto: number, tipo: string): Observable<any> {
+    const usuario = this.authService.getUsuarioActual();
+    if (!usuario) return throwError(() => new Error('Debes iniciar sesión'));
+
+    const params = new HttpParams()
+      .set('idProducto', idProducto.toString())
+      .set('tipo', tipo);
+
+    return this.http.post(`${this.apiUrl}/carrito/${usuario.id}/agregar`, null, { params }).pipe(
+      catchError(err => {
+        console.error('Error al agregar al carrito', err);
+        return throwError(() => err);
+      })
+    );
   }
 
+  /** ❌ Elimina un detalle concreto del carrito */
   eliminarDetalle(idDetalle: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/detalle/${idDetalle}`);
+    return this.http.delete(`${this.apiUrl}/detalle/${idDetalle}`).pipe(
+      catchError(err => {
+        console.error('Error al eliminar detalle', err);
+        return throwError(() => err);
+      })
+    );
   }
 
-  finalizarPedido(usuarioId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/carrito/${usuarioId}/finalizar`, {});
+  /** ✅ Finaliza el pedido (por ejemplo al hacer checkout) */
+  finalizarPedido(): Observable<any> {
+    const usuario = this.authService.getUsuarioActual();
+    if (!usuario) return throwError(() => new Error('Debes iniciar sesión'));
+
+    return this.http.post(`${this.apiUrl}/carrito/${usuario.id}/finalizar`, {}).pipe(
+      catchError(err => {
+        console.error('Error al finalizar pedido', err);
+        return throwError(() => err);
+      })
+    );
   }
 }

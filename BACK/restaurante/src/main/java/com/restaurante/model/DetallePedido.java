@@ -1,6 +1,7 @@
 // DetallePedido.java
 package com.restaurante.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
@@ -17,6 +18,7 @@ public class DetallePedido {
 
     @ManyToOne
     @JoinColumn(name = "id_pedido")
+    @JsonBackReference
     private Pedido pedido;
 
     @ManyToOne

@@ -2,7 +2,7 @@ import { Direccion } from './direccion.model';
 import { Alergeno } from './alergeno.model';
 
 export interface Usuario {
-  id_usuario: number;
+  id: number;
   nombre: string;
   apellidos: string;
   email: string;

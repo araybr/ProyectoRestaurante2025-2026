@@ -1,9 +1,12 @@
 package com.restaurante.controller;
 
+import com.restaurante.model.Menu;
 import com.restaurante.model.Pedido;
 import com.restaurante.service.PedidoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/pedidos")
@@ -11,6 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class PedidoController {
 
     private final PedidoService pedidoService;
+
+
+    @GetMapping
+    public List<Pedido> getAll() {
+        return pedidoService.findAll();
+    }
 
     @GetMapping("/carrito/{usuarioId}")
     public Pedido obtenerCarrito(@PathVariable Integer usuarioId) {
