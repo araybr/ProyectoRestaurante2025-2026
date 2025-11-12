@@ -4,9 +4,12 @@ import com.restaurante.model.Menu;
 import com.restaurante.model.Pedido;
 import com.restaurante.service.PedidoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/pedidos")
@@ -32,6 +35,27 @@ public class PedidoController {
                                    @RequestParam String tipo) {
         return pedidoService.agregarAlCarrito(usuarioId, idProducto, tipo);
     }
+
+    @DeleteMapping("/detalle/{idDetalle}")
+    public ResponseEntity<?> eliminarDetalle(@PathVariable Integer idDetalle) {
+        try {
+            pedidoService.eliminarDetalle(idDetalle);
+
+            // ✅ Devolvemos un JSON en vez de texto plano
+            return ResponseEntity.ok(Map.of(
+                    "mensaje", "Detalle eliminado correctamente",
+                    "idDetalle", idDetalle
+            ));
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of(
+                            "error", "No se encontró el detalle con ID: " + idDetalle
+                    ));
+        }
+    }
+
+
 
     @PostMapping("/carrito/{usuarioId}/finalizar")
     public Pedido finalizarPedido(@PathVariable Integer usuarioId) {

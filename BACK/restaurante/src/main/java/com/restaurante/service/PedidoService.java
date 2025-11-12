@@ -5,7 +5,9 @@ import com.restaurante.model.EstadoPedido;
 import com.restaurante.model.Pedido;
 import com.restaurante.model.Usuario;
 import com.restaurante.repository.*;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +18,10 @@ public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
     private final UsuarioRepository usuarioRepository;
+
+    @Autowired
     private final DetallePedidoRepository detalleRepository;
+
     private final MenuRepository menuRepository;
     private final BebidaRepository bebidaRepository;
     private final PostreRepository postreRepository;
@@ -61,4 +66,15 @@ public class PedidoService {
         carrito.setEstado(EstadoPedido.preparacion);
         return pedidoRepository.save(carrito);
     }
+
+    @Transactional
+    public void eliminarDetalle(Integer idDetalle) {
+        DetallePedido detalle = detalleRepository.findById(idDetalle)
+                .orElseThrow(() -> new RuntimeException("Detalle no encontrado"));
+
+        Pedido pedido = detalle.getPedido();
+        pedido.getDetalles().remove(detalle); // <-- sincroniza la relación
+        detalleRepository.delete(detalle);
+    }
+
 }
