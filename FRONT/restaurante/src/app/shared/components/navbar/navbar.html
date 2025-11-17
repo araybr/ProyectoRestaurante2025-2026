@@ -1,5 +1,5 @@
 <div id="site-header">
-  <header id="header">
+  <header id="header" class="header-block-top">
     <div class="container">
       <div class="row">
         <div class="main-menu">
@@ -22,11 +22,8 @@
                 <li class="active"><a href="#banner">Home</a></li>
                 <li><a href="#about">Sobre Nosotros</a></li>
                 <li><a href="#menu">Especial de Hoy</a></li>
-                <li><a routerLink="/menus">Menus</a></li>
-                <li><a href="#our_team">Equipo</a></li>
                 <li><a href="#gallery">Galería</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#footer">Contactanos</a></li>
+                <li><a routerLink="/menus">Menus</a></li>
 
                 @if (!usuarioLogueado) {
                   <li><a routerLink="/login">Iniciar sesión</a></li>

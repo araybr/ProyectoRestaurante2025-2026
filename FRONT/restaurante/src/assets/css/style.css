@@ -1532,10 +1532,6 @@ textarea:focus, input:focus, select:focus, .bootstrap-select .dropdown-toggle:fo
   overflow: hidden !important;
 }
 
-@media (max-width: 768px) {
-  .owl-carousel .owl-item {
-    width: 100% !important;
-  }
-}
+
 
 
