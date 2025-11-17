@@ -28,7 +28,8 @@
               "node_modules/jquery/dist/jquery.min.js",
               "src/assets/js/bootstrap.min.js",
               "src/assets/js/modernizer.js",
-              "src/assets/js/all.js",
+              "node_modules/owl.carousel/dist/owl.carousel.min.js",
+              "node_modules/slick-carousel/slick/slick.min.js",
               "src/assets/js/custom.js"
             ]
           },
