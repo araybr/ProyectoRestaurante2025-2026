@@ -1,0 +1,58 @@
+<div class="admin-container">
+  <h1>Página de Administración</h1>
+
+  <div class="form-section">
+    <h2>Añadir Producto</h2>
+
+    <input type="text" placeholder="Nombre" [(ngModel)]="nuevoProducto.nombre">
+    <input type="text" placeholder="Descripción" [(ngModel)]="nuevoProducto.descripcion">
+    <input type="number" placeholder="Precio" [(ngModel)]="nuevoProducto.precio">
+    <input type="text" placeholder="Nombre imagen" [(ngModel)]="nuevoProducto.imagen_url">
+
+    <select [(ngModel)]="nuevoProducto.tipo">
+      <option value="menu">Menú</option>
+      <option value="bebida">Bebida</option>
+      <option value="postre">Postre</option>
+    </select>
+
+    <button (click)="agregarProducto()">Añadir</button>
+  </div>
+
+  <h2>Gestión de Usuarios</h2>
+
+  <div class="usuarios-container">
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Cambiar Rol</th>
+        <th>Eliminar</th>
+      </tr>
+      </thead>
+
+      <tbody>
+        @for (u of usuarios; track u.id) {
+          <tr>
+            <td>{{ u.id }}</td>
+            <td>{{ u.nombre }} {{ u.apellidos }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.rol }}</td>
+            <td>
+              <select #rolSelect (change)="cambiarRol(u, rolSelect.value)">
+                <option value="cliente" [selected]="u.rol === 'cliente' || !u.rol">Cliente</option>
+                <option value="admin" [selected]="u.rol === 'admin'">Admin</option>
+                <option value="repartidor" [selected]="u.rol === 'repartidor'">Repartidor</option>
+              </select>
+            </td>
+            <td>
+              <button class="delete-btn" (click)="eliminarUsuario(u.id)">❌</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
