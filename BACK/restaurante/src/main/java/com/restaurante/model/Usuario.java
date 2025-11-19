@@ -54,6 +54,4 @@ public class Usuario {
     private Set<Alergeno> alergenos;
 }
 
-enum Rol {cliente, admin, repartidor}
-
 

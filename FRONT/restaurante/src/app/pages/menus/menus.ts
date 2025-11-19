@@ -13,11 +13,13 @@ import {data} from 'jquery';
   templateUrl: './menus.html',
   styleUrls: ['./menus.css']
 })
+
 export class Menus implements OnInit {
   menus: Menu[] = [];
   postres: Postre[] = [];
   bebidas: Bebida[] = [];
   usuarioId: number | null = null;
+  usuarioLogueado: any = null;
 
   constructor(
     private menuService: MenuService,
@@ -28,11 +30,16 @@ export class Menus implements OnInit {
   ngOnInit(): void {
     const usuario = this.auth.getUsuarioActual();
     this.usuarioId = usuario?.id ?? null;
+    this.usuarioLogueado = usuario;
 
+    this.cargarProductos();
+  }
+
+  cargarProductos() {
     // Menús
     this.menuService.getMenus().subscribe((menusFromBackend: any[]) => {
       this.menus = menusFromBackend.map(menu => ({
-        id: menu.id_menu,        // transformamos id_menu → id
+        id: menu.id_menu,
         nombre: menu.nombre,
         descripcion: menu.descripcion,
         precio: menu.precio,
@@ -43,7 +50,7 @@ export class Menus implements OnInit {
     // Postres
     this.menuService.getPostres().subscribe((postresFromBackend: any[]) => {
       this.postres = postresFromBackend.map(postre => ({
-        id: postre.id_postre,    // transformamos id_postre → id
+        id: postre.id_postre,
         nombre: postre.nombre,
         descripcion: postre.descripcion,
         precio: postre.precio,
@@ -54,7 +61,7 @@ export class Menus implements OnInit {
     // Bebidas
     this.menuService.getBebidas().subscribe((bebidasFromBackend: any[]) => {
       this.bebidas = bebidasFromBackend.map(bebida => ({
-        id: bebida.id_bebida,    // transformamos id_bebida → id
+        id: bebida.id_bebida,
         nombre: bebida.nombre,
         descripcion: bebida.descripcion,
         precio: bebida.precio,
@@ -71,6 +78,19 @@ export class Menus implements OnInit {
     this.pedidoService.agregarAlCarrito(producto.id, tipo).subscribe({
       next: () => alert(`${producto.nombre} añadido al carrito`),
       error: (err) => console.error(err)
+    });
+  }
+
+
+  eliminarProducto(tipo: 'menu' | 'postre' | 'bebida', id: number) {
+    if (!confirm('¿Seguro que quieres eliminar este producto?')) return;
+
+    this.menuService.eliminarProducto(tipo, id).subscribe({
+      next: () => {
+        alert('Producto eliminado');
+        this.cargarProductos();
+      },
+      error: err => console.error('Error eliminando producto', err)
     });
   }
 }

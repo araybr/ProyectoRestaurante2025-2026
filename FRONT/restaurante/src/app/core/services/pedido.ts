@@ -15,7 +15,6 @@ export class Pedido {
     private authService: AuthService
   ) {}
 
-  /** 🧾 Obtiene el carrito del usuario actual */
   obtenerCarrito(): Observable<any> {
     const usuario = this.authService.getUsuarioActual();
     if (!usuario) return throwError(() => new Error('Debes iniciar sesión'));
@@ -28,7 +27,6 @@ export class Pedido {
     );
   }
 
-  /** 🛒 Agrega un menú, bebida o postre al carrito */
   agregarAlCarrito(idProducto: number, tipo: string): Observable<any> {
     const usuario = this.authService.getUsuarioActual();
     if (!usuario) return throwError(() => new Error('Debes iniciar sesión'));
@@ -45,7 +43,7 @@ export class Pedido {
     );
   }
 
-  /** ❌ Elimina un detalle concreto del carrito */
+
   eliminarDetalle(idDetalle: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/detalle/${idDetalle}`).pipe(
       catchError(err => {
@@ -55,7 +53,7 @@ export class Pedido {
     );
   }
 
-  /** ✅ Finaliza el pedido (por ejemplo al hacer checkout) */
+
   finalizarPedido(): Observable<any> {
     const usuario = this.authService.getUsuarioActual();
     if (!usuario) return throwError(() => new Error('Debes iniciar sesión'));
@@ -67,4 +65,14 @@ export class Pedido {
       })
     );
   }
+
+  actualizarCantidad(idDetalle: number, cantidad: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/detalle/${idDetalle}`, { cantidad }).pipe(
+      catchError(err => {
+        console.error('Error al actualizar cantidad', err);
+        return throwError(() => err);
+      })
+    );
+  }
+
 }

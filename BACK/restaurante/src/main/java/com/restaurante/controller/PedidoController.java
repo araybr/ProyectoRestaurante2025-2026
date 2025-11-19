@@ -13,6 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/pedidos")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class PedidoController {
 
@@ -34,6 +35,27 @@ public class PedidoController {
                                    @RequestParam Integer idProducto,
                                    @RequestParam String tipo) {
         return pedidoService.agregarAlCarrito(usuarioId, idProducto, tipo);
+    }
+
+    @PutMapping("/detalle/{idDetalle}")
+    public ResponseEntity<?> actualizarDetalle(
+            @PathVariable Integer idDetalle,
+            @RequestBody Map<String, Integer> body // recibimos JSON
+    ) {
+        try {
+            Integer cantidad = body.get("cantidad");
+            pedidoService.actualizarCantidadDetalle(idDetalle, cantidad); // método en tu service
+            return ResponseEntity.ok(Map.of(
+                    "mensaje", "Cantidad actualizada correctamente",
+                    "idDetalle", idDetalle,
+                    "cantidad", cantidad
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of(
+                            "error", "No se encontró el detalle con ID: " + idDetalle
+                    ));
+        }
     }
 
     @DeleteMapping("/detalle/{idDetalle}")

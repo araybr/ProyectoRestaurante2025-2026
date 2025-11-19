@@ -1,4 +1,3 @@
-
 .productos-page {
   padding: 12rem 1rem 2rem;
   background: #2a2a2a;
@@ -24,16 +23,56 @@ h2 {
   border-radius: 0.75rem;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   text-align: center;
+  position: relative;
 }
 
-.producto-card img {
+.img-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.img-container img {
   width: 100%;
   height: 150px;
   object-fit: cover;
-  border-radius: 0.5rem;
-  margin-bottom: 0.5rem;
+  transition: filter 0.3s;
 }
 
+/* Oscurecer la imagen al hover */
+.img-container:hover img {
+  filter: brightness(60%);
+}
+
+/* Botón X sobre la imagen */
+.delete-overlay {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.2s;
+}
+
+/* Aparece al hover sobre la imagen */
+.img-container:hover .delete-overlay {
+  opacity: 1;
+}
+
+/* Animación al pasar el ratón sobre la X */
+.delete-overlay:hover {
+  transform: scale(1.2);
+}
+
+/* Texto del producto */
 .producto-card h3 {
   margin: 0.5rem 0;
   color: #ff7a00;

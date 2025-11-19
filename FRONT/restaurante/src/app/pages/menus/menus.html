@@ -2,7 +2,16 @@
   <h2>Menús</h2>
   <div class="productos-container">
     <div class="producto-card" *ngFor="let m of menus">
-      <img *ngIf="m.imagen_url" [src]="m.imagen_url" alt="{{m.nombre}}">
+
+      <div class="img-container" *ngIf="m.imagen_url">
+        <img [src]="m.imagen_url" alt="{{m.nombre}}">
+        <button *ngIf="usuarioLogueado?.rol === 'admin'"
+                class="delete-overlay"
+                (click)="eliminarProducto('menu', m.id)">
+          ✖
+        </button>
+      </div>
+
       <h3>{{ m.nombre }}</h3>
       <p>{{ m.descripcion }}</p>
       <p><strong>{{ m.precio | currency:'EUR' }}</strong></p>
@@ -13,7 +22,16 @@
   <h2>Postres</h2>
   <div class="productos-container">
     <div class="producto-card" *ngFor="let p of postres">
-      <img *ngIf="p.imagen_url" [src]="p.imagen_url" alt="{{p.nombre}}">
+
+      <div class="img-container" *ngIf="p.imagen_url">
+        <img [src]="p.imagen_url" alt="{{p.nombre}}">
+        <button *ngIf="usuarioLogueado?.rol === 'admin'"
+                class="delete-overlay"
+                (click)="eliminarProducto('postre', p.id)">
+          ✖
+        </button>
+      </div>
+
       <h3>{{ p.nombre }}</h3>
       <p>{{ p.descripcion }}</p>
       <p><strong>{{ p.precio | currency:'EUR' }}</strong></p>
@@ -24,7 +42,16 @@
   <h2>Bebidas</h2>
   <div class="productos-container">
     <div class="producto-card" *ngFor="let b of bebidas">
-      <img *ngIf="b.imagen_url" [src]="b.imagen_url" alt="{{b.nombre}}">
+
+      <div class="img-container" *ngIf="b.imagen_url">
+        <img [src]="b.imagen_url" alt="{{b.nombre}}">
+        <button *ngIf="usuarioLogueado?.rol === 'admin'"
+                class="delete-overlay"
+                (click)="eliminarProducto('bebida', b.id)">
+          ✖
+        </button>
+      </div>
+
       <h3>{{ b.nombre }}</h3>
       <p>{{ b.descripcion }}</p>
       <p><strong>{{ b.precio | currency:'EUR' }}</strong></p>

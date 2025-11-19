@@ -1,5 +1,6 @@
 package com.restaurante.controller;
 
+import com.restaurante.model.Rol;
 import com.restaurante.model.Usuario;
 import com.restaurante.service.UsuarioService;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,28 @@ public class UsuarioController {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
+
+    @PatchMapping("/{id}/rol")
+    public ResponseEntity<Usuario> updateRol(@PathVariable Integer id, @RequestBody String rolString) {
+
+        Optional<Usuario> optionalUsuario = usuarioService.findById(id);
+
+        if (optionalUsuario.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        Usuario usuario = optionalUsuario.get();
+
+        try {
+            Rol nuevoRol = Rol.valueOf(rolString.replace("\"", ""));
+            usuario.setRol(nuevoRol);
+            Usuario actualizado = usuarioService.save(usuario);
+            return ResponseEntity.ok(actualizado);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
 
     @PostMapping("/register")
     public ResponseEntity<Usuario> register(@RequestBody Usuario user) {

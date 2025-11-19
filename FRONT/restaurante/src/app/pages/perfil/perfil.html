@@ -1,5 +1,6 @@
 <div class="perfil-page">
   <div class="perfil-container" *ngIf="usuario; else noLogin">
+
     <div class="perfil-avatar">
       {{ usuario.nombre[0] | uppercase }}
     </div>
@@ -30,8 +31,12 @@
         <tr *ngFor="let item of carrito.detalles">
           <td>{{ item.menu?.nombre || item.postre?.nombre || item.bebida?.nombre }}</td>
           <td>{{ item.menu ? 'Menú' : item.postre ? 'Postre' : 'Bebida' }}</td>
-          <td>{{ item.cantidad }}</td>
-          <td>{{ item.precio_unitario | currency:'EUR' }}</td>
+          <td>
+            <button (click)="cambiarCantidad(item, -1)" [disabled]="item.cantidad <= 1">-</button>
+            {{ item.cantidad }}
+            <button (click)="cambiarCantidad(item, 1)">+</button>
+          </td>
+          <td>{{ item.precio_unitario * item.cantidad | currency:'EUR' }}</td>
           <td>
             <button (click)="eliminarDetalle(item.id_detalle)">❌</button>
           </td>
@@ -49,6 +54,7 @@
     <ng-template #vacio>
       <p>Tu carrito está vacío</p>
     </ng-template>
+
   </div>
 
   <ng-template #noLogin>

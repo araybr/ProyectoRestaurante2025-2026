@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { AuthService } from '../../../core/services/auth';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import { Usuario } from '../../../shared/models/usuario.model';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-navbar',
   standalone: true,
   templateUrl: './navbar.html',
-  imports: [NgIf, NgClass, RouterLink],
+  imports: [NgClass, RouterLink],
   styleUrls: ['./navbar.css']
 })
 export class Navbar {
